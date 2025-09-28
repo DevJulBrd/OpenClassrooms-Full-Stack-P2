@@ -35,5 +35,32 @@ if (!empty($errors)) {
 } 
 // Ajout a la BDD
 else {
+    try {
+        // Requete SQL
+        $sql = "INSERT INTO oeuvres (titre, description, artiste, image) VALUES (:titre, :description, :artiste, :image)";
+        $statmentOeuvre = $pdo->prepare($sql);
+        // Valeurs a transmettre
+        $statmentOeuvre->execute([
+            ':titre' => $title,
+            ':description' => $description,
+            ':artiste' => $artiste,
+            ':image' => $img,
+        ]);
 
+        // Recuperation du dernier id ajoute
+        $lastId = $pdo->lastInsertId();
+        // Redirection vers page de l'oeuvre qui vient d'etre ajoutee
+        header('Location: oeuvre.php?id=' . urlencode($lastId));
+        exit;
+    }
+    // En cas d'erreur 
+    catch (PDOException $e) {
+        // Affiche l'erreur
+        die('Erreur: '.$e->getMessage());
+
+        // Redirection vers la page ajouter.php
+        header('Location: ajouter.php');
+        exit;
+    }
 }
+?>
