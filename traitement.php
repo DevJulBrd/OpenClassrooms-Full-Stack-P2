@@ -5,6 +5,12 @@ $artiste = isset($_POST['artiste']) ? trim($_POST['artiste']) : '';
 $img = isset($_POST['image']) ? trim($_POST['image']) : '';
 $description = isset($_POST['description']) ? trim($_POST['description']) : '';
 
+// Protection XSS, annule le code HTML
+$title = strip_tags($title);
+$artiste = strip_tags($artiste);
+$title = strip_tags($title);
+
+
 // Connexion BDD
 require_once __DIR__ . '/bdd.php';
 
