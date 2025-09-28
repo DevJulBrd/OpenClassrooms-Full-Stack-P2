@@ -1,6 +1,11 @@
 <?php
     require 'header.php';
-    require 'oeuvres.php';
+    require_once (__DIR__ . '/bdd.php');
+    // Requete SQL
+    $pdo = getPDO();
+    $oeuvresStatement = $pdo->prepare('SELECT * FROM oeuvres');
+    $oeuvresStatement->execute();
+    $oeuvres = $oeuvresStatement->fetchAll();
 ?>
 <div id="liste-oeuvres">
     <?php foreach($oeuvres as $oeuvre): ?>

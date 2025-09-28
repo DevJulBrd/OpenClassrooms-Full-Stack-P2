@@ -20,5 +20,5 @@ function getPDO() : PDO {
             die('Erreur connexion BDD : ' . $e->getMessage());
         }
     }
-    return $pdo;
+    return $pdo
 }
